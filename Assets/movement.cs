@@ -16,16 +16,16 @@ public class NewMonoBehaviourScript : MonoBehaviour
 		moveInput = Vector2.zero;
 
 		if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)
-			moveInput.y += 1;
+			moveInput.y += 2;
 
 		if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed)
-			moveInput.y -= 1;
+			moveInput.y -= 2;
 
 		if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
-			moveInput.x -= 1;
+			moveInput.x -= 2;
 
 		if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
-			moveInput.x += 1;
+			moveInput.x += 2;
 
 		transform.Translate(moveInput * moveSpeed * Time.deltaTime);
 	}
