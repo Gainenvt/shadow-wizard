@@ -3,20 +3,16 @@ using UnityEngine;
 public class circleGen : MonoBehaviour
 {
 	public GameObject circlePrefab;
-	public float fallSpeed = 3f;
-	public float minSpawnTime = 0.5f;
+	public float minSpawnTime = 0.005f;
 	public float maxSpawnTime = 2f;
-	public float difficultyIncreaseRate = 0.01f;
+	public float difficultyIncreaseRate = 0.05f;
+
 	private float spawnTimer;
 	private float nextSpawnTime;
 
-	void Start()
-	{
-
-	}
-
 	void Update()
 	{
+
 		spawnTimer += Time.deltaTime;
 
 		minSpawnTime = Mathf.Max(0.2f, minSpawnTime - difficultyIncreaseRate * Time.deltaTime);
