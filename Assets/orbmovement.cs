@@ -17,8 +17,12 @@ public class orbmovement : MonoBehaviour
    {
 	   if(other.CompareTag("FreezeLine"))
 	   {
-		  FreezeCircles();
-		  FreezeCircles();
+			FreezeCircles();
 	   }
+	}
+
+	private void OnCollisionEnter2D(Collision collision)
+	{
+		
 	}
 }
