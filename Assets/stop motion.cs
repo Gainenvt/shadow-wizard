@@ -14,8 +14,9 @@ public class Stopmotion : MonoBehaviour
     {
 		if( other.CompareTag("FreezeLine"))
 		{
-			rb.bodyType = RigidbodyType2D.Static;
-			rb.gravityScale = 0;
+			rb.linearVelocity = Vector2.zero;
+			rb.angularVelocity = 0f;
+			rb.constraints = RigidbodyConstraints2D.FreezeAll;
 		}
 	}
 }

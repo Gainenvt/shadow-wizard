@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerInteract : MonoBehaviour
 {
 	public float interactRange = 10f;
+	public float moveSpeed = 5f;
+
 
 	void Update()
 	{
@@ -22,26 +24,35 @@ public class PlayerInteract : MonoBehaviour
 			float xDistance = Mathf.Abs(transform.position.x - circle.transform.position.x);
 			float yDistance = Mathf.Abs(transform.position.y - circle.transform.position.y);
 
-			if(xDistance < 1.5f &&  yDistance > 0&& yDistance < 10f)
+			if (xDistance < 1.5f && yDistance > 0 && yDistance < interactRange)
 			{
 				if (transform.position.y < circle.transform.position.y)
 				{
-					Vector3 moveDir = new Vector3(0, 2f, 0);
+					CircleController circleController = circle.GetComponent<CircleController>();
 
-					if (Keyboard.current.aKey.isPressed)
-						moveDir += new Vector3(-1f, 0, 0);
+					if (circleController != null && circleController.canBeMoved)
+					{
+						Rigidbody2D circleRb = circle.GetComponent<Rigidbody2D>();
 
-					if (Keyboard.current.dKey.isPressed)
-						moveDir += new Vector3(2f, 0, 0);
+						if (circleRb != null)
+						{
+							Vector2 moveDir = Vector2.up;
 
-					circle.transform.position += moveDir * Time.deltaTime * 5f;
+							if (Keyboard.current.aKey.isPressed)
+								moveDir += Vector2.left;
 
-					
+							if (Keyboard.current.dKey.isPressed)
+								moveDir += Vector2.right;
 
+							moveDir.Normalize();
 
+							circleRb.linearVelocity = moveDir * moveSpeed;
+						}
+
+					}
 				}
-
 			}
 		}
 	}
+
 }

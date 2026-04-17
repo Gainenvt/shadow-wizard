@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,4 +30,5 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
 		transform.Translate(moveInput * moveSpeed * Time.deltaTime);
 	}
+
 }

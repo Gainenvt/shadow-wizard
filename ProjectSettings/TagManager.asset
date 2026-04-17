@@ -6,6 +6,7 @@ TagManager:
   tags:
   - circle
   - FreezeLine
+  - DestroyLine
   layers:
   - Default
   - TransparentFX
