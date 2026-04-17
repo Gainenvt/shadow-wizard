@@ -72,7 +72,7 @@ public class CircleController : MonoBehaviour
 		if (collision.gameObject.CompareTag("Player") && canBeMoved)
 		{
 			Vector2 direction = (transform.position - collision.transform.position);
-			direction.y = 0; // stop vertical nonsense
+			direction.y = 0;
 			direction = direction.normalized;
 
 			rb.linearVelocity = new Vector2(direction.x * pushForce, rb.linearVelocity.y);
