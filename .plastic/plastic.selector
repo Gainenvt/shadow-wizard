@@ -1,4 +1,0 @@
-repository "shadow wizard 2026-04-04_19-24-38/shadow wizard@1375634357886@cloud"
-  path "/"
-    br "/main"
-    co "/main"
