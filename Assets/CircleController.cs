@@ -1,6 +1,5 @@
-using UnityEngine;
-
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CircleController : MonoBehaviour
 {
@@ -10,6 +9,9 @@ public class CircleController : MonoBehaviour
 	public bool canBeMoved = true;
 	public float touchCheckRadius = 1.2f;
 	public float pushForce = 5f;
+	public enum CircleType { Fire, Wind, Darkness , Light }
+	public CircleType colorType;
+
 
 	void Start()
 	{
@@ -40,30 +42,7 @@ public class CircleController : MonoBehaviour
 		// Match checking
 		if (collision.gameObject.CompareTag("circle"))
 		{
-			CheckForThreeTouching();
-		}
-	}
-
-	void CheckForThreeTouching()
-	{
-		Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, touchCheckRadius);
-
-		List<GameObject> touchingCircles = new List<GameObject>();
-
-		foreach (Collider2D hit in hits)
-		{
-			if (hit.CompareTag("circle"))
-			{
-				touchingCircles.Add(hit.gameObject);
-			}
-		}
-
-		if (touchingCircles.Count >= 3)
-		{
-			foreach (GameObject circle in touchingCircles)
-			{
-				Destroy(circle);
-			}
+			CircleController other = collision.gameObject.GetComponent<CircleController>();
 		}
 	}
 
@@ -78,16 +57,26 @@ public class CircleController : MonoBehaviour
 			rb.linearVelocity = new Vector2(direction.x * pushForce, rb.linearVelocity.y);
 		}
 	}
+	void TryMatch()
+	{
+		if (!isFrozen) return;
+
+		CircleGroupManager.Instance.CheckGroup(this);
+	}
 
 	void FreezeCircle()
 	{
+		if (isFrozen) return; 
+
 		isFrozen = true;
 		canBeMoved = false;
 
 		rb.linearVelocity = Vector2.zero;
 		rb.angularVelocity = 0f;
-
 		rb.gravityScale = 0f;
 		rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+		Invoke(nameof(TryMatch), 0.2f);
 	}
+
 }

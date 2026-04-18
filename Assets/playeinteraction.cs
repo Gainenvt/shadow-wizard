@@ -19,40 +19,44 @@ public class PlayerInteract : MonoBehaviour
 	{
 		GameObject[] circles = GameObject.FindGameObjectsWithTag("circle");
 
+		GameObject closestCircle = null;
+		float closestDistance = Mathf.Infinity;
+
 		foreach (GameObject circle in circles)
 		{
 			float xDistance = Mathf.Abs(transform.position.x - circle.transform.position.x);
-			float yDistance = Mathf.Abs(transform.position.y - circle.transform.position.y);
+			float yDistance = circle.transform.position.y - transform.position.y;
 
+			// must be above player and roughly aligned
 			if (xDistance < 1.5f && yDistance > 0 && yDistance < interactRange)
 			{
-				if (transform.position.y < circle.transform.position.y)
+				if (yDistance < closestDistance)
 				{
-					CircleController circleController = circle.GetComponent<CircleController>();
-
-					if (circleController != null && circleController.canBeMoved)
-					{
-						Rigidbody2D circleRb = circle.GetComponent<Rigidbody2D>();
-
-						if (circleRb != null)
-						{
-							Vector2 moveDir = Vector2.up;
-
-							if (Keyboard.current.aKey.isPressed)
-								moveDir += Vector2.left;
-
-							if (Keyboard.current.dKey.isPressed)
-								moveDir += Vector2.right;
-
-							moveDir.Normalize();
-
-							circleRb.linearVelocity = moveDir * moveSpeed;
-						}
-
-					}
+					closestDistance = yDistance;
+					closestCircle = circle;
 				}
 			}
 		}
-	}
 
+		if (closestCircle != null)
+		{
+			CircleController circleController = closestCircle.GetComponent<CircleController>();
+			Rigidbody2D rb = closestCircle.GetComponent<Rigidbody2D>();
+
+			if (circleController != null && circleController.canBeMoved && rb != null)
+			{
+				Vector2 moveDir = Vector2.up;
+
+				if (Keyboard.current.aKey.isPressed)
+					moveDir += Vector2.left;
+
+				if (Keyboard.current.dKey.isPressed)
+					moveDir += Vector2.right;
+
+				moveDir.Normalize();
+
+				rb.linearVelocity = moveDir * moveSpeed;
+			}
+		}
+	}
 }

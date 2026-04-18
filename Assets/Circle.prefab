@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 3292526380969192597}
   - component: {fileID: 8201696988585118138}
   - component: {fileID: 249639671187875271}
-  - component: {fileID: -2710362258243200065}
-  - component: {fileID: 586500173229831033}
   - component: {fileID: 3708059559475928532}
   - component: {fileID: 7344663747463254396}
   - component: {fileID: -1062736462922609601}
+  - component: {fileID: 515837473271395413}
   m_Layer: 6
   m_Name: circle
   m_TagString: circle
@@ -89,7 +88,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 362e99e80c5831e47907d0d099214ea6, type: 3}
-  m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -159,7 +158,7 @@ Rigidbody2D:
   m_Mass: 5
   m_LinearDamping: 0.3
   m_AngularDamping: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -171,32 +170,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-2710362258243200065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5270624227473467455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3fb0ce9ef5b384418e8a788a79db143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Stopmotion
---- !u!114 &586500173229831033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5270624227473467455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57daef0d99004e45bef0f0998a3df40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::orbmovement
-  isFrozen: 0
-  canbeMoved: 1
 --- !u!114 &3708059559475928532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +200,7 @@ MonoBehaviour:
   canBeMoved: 1
   touchCheckRadius: 0
   pushForce: 5
+  colorType: 0
 --- !u!58 &-1062736462922609601
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -263,3 +237,15 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &515837473271395413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270624227473467455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1e8900429721e4b8dfc525414b2eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CircleGroupManager

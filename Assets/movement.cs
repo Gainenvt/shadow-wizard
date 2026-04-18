@@ -6,6 +6,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 {
 	public float moveSpeed = 5f;
 	private Vector2 moveInput;
+	private Rigidbody2D rb;
 
 	void Start()
 	{
@@ -30,5 +31,4 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
 		transform.Translate(moveInput * moveSpeed * Time.deltaTime);
 	}
-
 }
