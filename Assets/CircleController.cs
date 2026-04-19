@@ -57,14 +57,59 @@ public class CircleController : MonoBehaviour
 			rb.linearVelocity = new Vector2(direction.x * pushForce, rb.linearVelocity.y);
 		}
 	}
-	void TryMatch()
-	{
-		if (!isFrozen) return;
+    void TryMatch()
+    {
+        if (!isFrozen) return;
 
-		CircleGroupManager.Instance.CheckGroup(this);
-	}
+        CheckMatch();
+    }
 
-	void FreezeCircle()
+    void CheckMatch()
+    {
+        List<CircleController> group = GetConnectedCircles();
+
+        if (group.Count >= 3)
+        {
+            GameManager.Instance.AddMatchScore(group.Count);
+
+            foreach (CircleController c in group)
+            {
+                Destroy(c.gameObject);
+            }
+        }
+    }
+    List<CircleController> GetConnectedCircles()
+    {
+        List<CircleController> result = new List<CircleController>();
+        Queue<CircleController> queue = new Queue<CircleController>();
+
+        queue.Enqueue(this);
+        result.Add(this);
+
+        while (queue.Count > 0)
+        {
+            CircleController current = queue.Dequeue();
+
+            Collider2D[] hits = Physics2D.OverlapCircleAll(current.transform.position, touchCheckRadius);
+
+            foreach (Collider2D hit in hits)
+            {
+                CircleController other = hit.GetComponent<CircleController>();
+
+                if (other != null &&
+                    other.colorType == this.colorType &&
+                    !result.Contains(other))
+                {
+                    result.Add(other);
+                    queue.Enqueue(other);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    void FreezeCircle()
 	{
 		if (isFrozen) return; 
 

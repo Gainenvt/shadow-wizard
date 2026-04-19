@@ -3,60 +3,64 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
-	public float interactRange = 10f;
-	public float moveSpeed = 5f;
+    public float interactRange = 2.5f;
+    public float moveSpeed = 5f;
+    Rigidbody2D currentCircle;
 
 
-	void Update()
-	{
-		if (Keyboard.current.spaceKey.isPressed)
-		{
-			TryMoveCircle();
-		}
-	}
+    void Update()
+    {
+        if (Keyboard.current.spaceKey.isPressed)
+        {
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange);
 
-	void TryMoveCircle()
-	{
-		GameObject[] circles = GameObject.FindGameObjectsWithTag("circle");
+            GameObject closestCircle = null;
+            float closestDistance = Mathf.Infinity;
 
-		GameObject closestCircle = null;
-		float closestDistance = Mathf.Infinity;
+            foreach (Collider2D hit in hits)
+            {
+                if (!hit.CompareTag("circle")) continue;
 
-		foreach (GameObject circle in circles)
-		{
-			float xDistance = Mathf.Abs(transform.position.x - circle.transform.position.x);
-			float yDistance = circle.transform.position.y - transform.position.y;
+                float xDistance = Mathf.Abs(transform.position.x - hit.transform.position.x);
+                float yDistance = hit.transform.position.y - transform.position.y;
 
-			// must be above player and roughly aligned
-			if (xDistance < 1.5f && yDistance > 0 && yDistance < interactRange)
-			{
-				if (yDistance < closestDistance)
-				{
-					closestDistance = yDistance;
-					closestCircle = circle;
-				}
-			}
-		}
+                if (xDistance < 1.2f && yDistance > 0 && yDistance < closestDistance)
+                {
+                    closestDistance = yDistance;
+                    closestCircle = hit.gameObject;
+                }
+            }
 
-		if (closestCircle != null)
-		{
-			CircleController circleController = closestCircle.GetComponent<CircleController>();
-			Rigidbody2D rb = closestCircle.GetComponent<Rigidbody2D>();
+            if (closestCircle != null)
+            {
+                CircleController circleController = closestCircle.GetComponent<CircleController>();
+                Rigidbody2D rb = closestCircle.GetComponent<Rigidbody2D>();
 
-			if (circleController != null && circleController.canBeMoved && rb != null)
-			{
-				Vector2 moveDir = Vector2.up;
+                if (circleController != null && circleController.canBeMoved && rb != null)
+                {
+                    Vector2 moveDir = Vector2.up;
 
-				if (Keyboard.current.aKey.isPressed)
-					moveDir += Vector2.left;
+                    if (Keyboard.current.aKey.isPressed)
+                        moveDir += Vector2.left;
 
-				if (Keyboard.current.dKey.isPressed)
-					moveDir += Vector2.right;
+                    if (Keyboard.current.dKey.isPressed)
+                        moveDir += Vector2.right;
 
-				moveDir.Normalize();
+                    moveDir.Normalize();
 
-				rb.linearVelocity = moveDir * moveSpeed;
-			}
-		}
-	}
+                    // Stop previous circle
+                    if (currentCircle != null)
+                    {
+                        currentCircle.linearVelocity = Vector2.zero;
+                    }
+
+                    // Set new circle
+                    currentCircle = rb;
+
+                    // Move only this one
+                    currentCircle.linearVelocity = moveDir * moveSpeed;
+                }
+            }
+        }
+    }
 }

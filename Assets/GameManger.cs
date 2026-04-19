@@ -1,38 +1,44 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public int lives = 6;
+    public static GameManager Instance;
+
     public int score = 0;
-    public int winScore = 20;
     public int pointsPerMatch = 2;
+    public int winScore = 20;
+    public TextMeshProUGUI scoreText;
 
-    public void CircleHitGround()
+    void Awake()
     {
-        lives--;
-
-        if (lives <= 0)
-        {
-            Debug.Log("Game Over");
-        }
+        Instance = this;
     }
 
-    public void AddScore(int amount)
+    void Start()
     {
-        score += amount;
-
-        if (score >= winScore)
-        {
-            Debug.Log("You Win");
-        }
+        UpdateScoreUI();
     }
-    public void AddMatchScore()
+
+    public void AddMatchScore(int groupSize)
     {
         score += pointsPerMatch;
-        Debug.Log("Score: " + score);  
+
+        Debug.Log("Score: " + score);
+
+        UpdateScoreUI();
+
         if (score >= winScore)
         {
-            Debug.Log("success");
+            Debug.Log("YOU WIN");
+        }
+    }
+
+    void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
         }
     }
 }
