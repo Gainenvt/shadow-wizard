@@ -918,6 +918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbb52d2c489ec3408161f42dcba1803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  missCount: 0
+  maxMisses: 7
+  gameEnded: 0
   score: 0
   pointsPerMatch: 5
   winScore: 20
@@ -1087,6 +1090,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbb52d2c489ec3408161f42dcba1803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  missCount: 0
+  maxMisses: 7
+  gameEnded: 0
   score: 0
   pointsPerMatch: 2
   winScore: 20
@@ -1352,6 +1358,7 @@ MonoBehaviour:
   minX: -8
   maxX: 8
   spawnY: 6
+  spawnWidth: 5
 --- !u!4 &1686967911
 Transform:
   m_ObjectHideFlags: 0
@@ -1583,7 +1590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e6a86839173ff42877f1f8670a45b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  moveSpeed: 7
+  moveSpeed: 10
 --- !u!114 &2033375259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1614,7 +1621,7 @@ MonoBehaviour:
   isFrozen: 0
   canBeMoved: 1
   touchCheckRadius: 0.05
-  pushForce: 5
+  pushForce: 2
   colorType: 0
 --- !u!1001 &3869192187078616879
 PrefabInstance:
