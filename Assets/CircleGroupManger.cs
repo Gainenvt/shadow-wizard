@@ -5,8 +5,9 @@ using UnityEngine;
 public class CircleGroupManager : MonoBehaviour
 {
 	public static CircleGroupManager Instance;
-
-	void Awake()
+	public float destroyHeight = -10f;
+	
+    void Awake()
 	{
 		Instance = this;
 	}
@@ -14,46 +15,64 @@ public class CircleGroupManager : MonoBehaviour
 	public void CheckGroup(CircleController circle)
 	{
 		List<CircleController> group = GetConnectedCircles(circle);
-
-		if (group.Count >= 3)	
+		if (group.Count >= 3)
 		{
+			// prevent double scoring
 			foreach (CircleController c in group)
 			{
-				Destroy(c.gameObject);
+				c.enabled = false;
 			}
-			Debug.Log("Group size: " + group.Count);
-		}
-	}
 
-	List<CircleController> GetConnectedCircles(CircleController start)
-	{
-		List<CircleController> result = new List<CircleController>();
-		Queue<CircleController> queue = new Queue<CircleController>();
-
-		queue.Enqueue(start);
-		result.Add(start);
-
-		while (queue.Count > 0)
-		{
-			CircleController current = queue.Dequeue();
-
-			Collider2D[] hits = Physics2D.OverlapCircleAll(current.transform.position, current.touchCheckRadius);
-
-			foreach (Collider2D hit in hits)
+			if (group.Count >= 3)
 			{
-				CircleController other = hit.GetComponent<CircleController>();
-
-				if (other != null &&
-					other.colorType == start.colorType &&
-					other.isFrozen &&
-					!result.Contains(other))
+				foreach (CircleController c in group)
 				{
-					result.Add(other);
-					queue.Enqueue(other);
+					Destroy(c.gameObject);
+				}
+				Debug.Log("Group size: " + group.Count);
+			}
+
+
+		}
+
+		List<CircleController> GetConnectedCircles(CircleController start)
+		{
+			List<CircleController> result = new List<CircleController>();
+			Queue<CircleController> queue = new Queue<CircleController>();
+
+			queue.Enqueue(start);
+			result.Add(start);
+
+			while (queue.Count > 0)
+			{
+				CircleController current = queue.Dequeue();
+
+				Collider2D[] hits = Physics2D.OverlapCircleAll(current.transform.position, current.touchCheckRadius);
+
+				foreach (Collider2D hit in hits)
+				{
+					CircleController other = hit.GetComponent<CircleController>();
+
+					if (other != null &&
+						other.colorType == start.colorType &&
+						other.isFrozen &&
+						!result.Contains(other))
+					{
+						result.Add(other);
+						queue.Enqueue(other);
+					}
 				}
 			}
-		}
 
-		return result;
+			return result;
+		}
 	}
+    void Update()
+    {
+        if (transform.position.y < destroyHeight)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
