@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
     public int pointsPerMatch = 2;
     public int winScore = 20;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI resultText;
+    public TextMeshProUGUI missText;     
 
     void Awake()
     {
         Instance = this;
+        Debug.Log("GameManager Initialized");
     }
 
     void Start()
@@ -33,7 +36,9 @@ public class GameManager : MonoBehaviour
         if (score >= winScore && !gameEnded)
         {
             gameEnded = true;
-            Debug.Log("YOU WIN");
+            resultText.text = "STAGE CLEARED";
+            Debug.Log("Floor Cleared!");
+            Time.timeScale = 0f; // Pause the game
         }
     }
 
@@ -54,7 +59,11 @@ public class GameManager : MonoBehaviour
         if (missCount >= maxMisses && !gameEnded)
         {
             gameEnded = true;
-            Debug.Log("Game Over!");
+            resultText.text = "FLOOR FAILED";
+            Debug.Log("Floor Failed!");
+            Time.timeScale = 0f; // Pause the game
+
+
         }
     }
 

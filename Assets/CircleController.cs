@@ -9,7 +9,8 @@ public class CircleController : MonoBehaviour
 	public bool canBeMoved = true;
 	public float touchCheckRadius = 1.2f;
 	public float pushForce = 5f;
-	public enum CircleType { Fire, Wind, Darkness , Light }
+
+    public enum CircleType { Fire, Wind, Darkness , Light }
 	public CircleType colorType;
 
 
@@ -124,4 +125,15 @@ public class CircleController : MonoBehaviour
 		Invoke(nameof(TryMatch), 0.2f);
 	}
 
-}
+
+    public bool hasBeenCounted = false;
+    void Update()
+    {
+        if (transform.position.y < -4f)
+        {
+            GameManager.Instance.CircleMissed();
+            Destroy(gameObject);
+        }
+    }
+    }
+
