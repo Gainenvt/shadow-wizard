@@ -3,32 +3,38 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
-    public float interactRange = 2.5f;
+    public float interactRange = 0.5f;
     public float moveSpeed = 5f;
     Rigidbody2D currentCircle;
+    public float verticalRange = 11f;
 
 
     void Update()
     {
         if (Keyboard.current.spaceKey.isPressed)
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange);
+            Vector2 boxSize = new Vector2(0.2f, verticalRange);
+            Vector2 boxCenter = new Vector2(transform.position.x, transform.position.y + verticalRange / 2);
+
+            Collider2D[] hits = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
 
             GameObject closestCircle = null;
             float closestDistance = Mathf.Infinity;
 
             foreach (Collider2D hit in hits)
             {
+                float xDistance = Mathf.Abs(transform.position.x - hit.transform.position.x);
+
                 if (!hit.CompareTag("circle")) continue;
 
-                float xDistance = Mathf.Abs(transform.position.x - hit.transform.position.x);
                 float yDistance = hit.transform.position.y - transform.position.y;
 
-                if (xDistance < 1.2f && yDistance > 0 && yDistance < closestDistance)
+                if (xDistance < 0.25f && yDistance > 0 && yDistance < closestDistance)
                 {
                     closestDistance = yDistance;
                     closestCircle = hit.gameObject;
                 }
+
             }
 
             if (closestCircle != null)
@@ -48,16 +54,10 @@ public class PlayerInteract : MonoBehaviour
 
                     moveDir.Normalize();
 
-                    // Stop previous circle
                     if (currentCircle != null)
-                    {
                         currentCircle.linearVelocity = Vector2.zero;
-                    }
 
-                    // Set new circle
                     currentCircle = rb;
-
-                    // Move only this one
                     currentCircle.linearVelocity = moveDir * moveSpeed;
                 }
             }

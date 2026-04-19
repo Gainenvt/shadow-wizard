@@ -4,7 +4,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public int missCount = 0;
+    public int maxMisses = 7;
+    public bool gameEnded = false;
     public int score = 0;
     public int pointsPerMatch = 2;
     public int winScore = 20;
@@ -22,14 +24,15 @@ public class GameManager : MonoBehaviour
 
     public void AddMatchScore(int groupSize)
     {
-        score += pointsPerMatch;
+        if (gameEnded) return;
 
-        Debug.Log("Score: " + score);
+        score += pointsPerMatch;
 
         UpdateScoreUI();
 
-        if (score >= winScore)
+        if (score >= winScore && !gameEnded)
         {
+            gameEnded = true;
             Debug.Log("YOU WIN");
         }
     }
@@ -41,4 +44,20 @@ public class GameManager : MonoBehaviour
             scoreText.text = "Score: " + score;
         }
     }
+
+    public void CircleMissed()
+    {
+        if (gameEnded) return;
+
+        missCount++;
+
+        if (missCount >= maxMisses && !gameEnded)
+        {
+            gameEnded = true;
+            Debug.Log("Game Over!");
+        }
+    }
+
+
+
 }

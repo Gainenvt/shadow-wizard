@@ -1596,8 +1596,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5b64a882fe6d44da1957b672b1dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactRange: 13
-  moveSpeed: 8.88
+  interactRange: 10
+  moveSpeed: 10
+  verticalRange: 10
 --- !u!114 &2033375260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1612,7 +1613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CircleController
   isFrozen: 0
   canBeMoved: 1
-  touchCheckRadius: 0.7
+  touchCheckRadius: 0.05
   pushForce: 5
   colorType: 0
 --- !u!1001 &3869192187078616879

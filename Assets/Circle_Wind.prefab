@@ -110,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   interactRange: 10
   moveSpeed: 5
+  verticalRange: 4
 --- !u!114 &7344663747463254396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1e8900429721e4b8dfc525414b2eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircleGroupManager
-  destroyHeight: -5
+  destroyHeight: -4.1
 --- !u!50 &4149378843874539980
 Rigidbody2D:
   serializedVersion: 5
@@ -155,7 +156,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

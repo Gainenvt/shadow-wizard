@@ -6,7 +6,7 @@ public class circleGen : MonoBehaviour
     public float minSpawnTime = 0.5f;
     public float maxSpawnTime = 2f;
     public float difficultyIncreaseRate = 0.05f;
-    public float spawnZone = 1.5f;
+    public float spawnZone = 0.5f;
     public LayerMask circleLayer;
     public float minX = -8f;
     public float maxX = 8f;
@@ -14,7 +14,7 @@ public class circleGen : MonoBehaviour
 
     private float spawnTimer;
     private float nextSpawnTime;
-
+    public float  spawnWidth = 5f;
     void Start()
     {
         nextSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
