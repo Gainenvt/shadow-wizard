@@ -2280,7 +2280,7 @@ MonoBehaviour:
   - {fileID: 5270624227473467455, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
   - {fileID: 5270624227473467455, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
   minSpawnTime: 2
-  maxSpawnTime: 2
+  maxSpawnTime: 5
   difficultyIncreaseRate: 0.01
   spawnZone: 0.5
   circleLayer:
