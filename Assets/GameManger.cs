@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverPanel;
     public GameObject NextLevelButton;
     public GameObject RetryLevelButton;
+    public GameObject MainMenuButton;
 
     void Awake()
     {
@@ -67,12 +68,15 @@ public class GameManager : MonoBehaviour
             ResultText.text = "FLOOR CLEARED";
             NextLevelButton.SetActive(true);
             RetryLevelButton.SetActive(false);
+            MainMenuButton.SetActive(true);
+
         }
         else
         {
             ResultText.text = "FLOOR FAILED";
             NextLevelButton.SetActive(false);
             RetryLevelButton.SetActive(true);
+            MainMenuButton.SetActive(true);
         }
     }
 
@@ -80,6 +84,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Retrying level...");
     }
     public void NextLevel()
     {
