@@ -1,22 +1,24 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public int missCount = 0;
-    public int maxMisses = 7;
-    public bool gameEnded = false;
+    public int MissCount = 0;
+    public int MaxMisses = 7;
+    public bool GameEnded = false;
 
-    public int score = 0;
-    public int pointsPerMatch = 2;
-    public int winScore = 20;
+    public int Score = 0;
+    public int PointsPerMatch = 2;
+    public int WinScore = 20;
 
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI resultText;
-    public GameObject gameOverPanel;
-    public GameObject nextLevelButton;
+    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI ResultText;
+    public GameObject GameOverPanel;
+    public GameObject NextLevelButton;
+    public GameObject RetryLevelButton;
 
     void Awake()
     {
@@ -26,17 +28,17 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UpdateScoreUI();
-        gameOverPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
 
     public void AddMatchScore(int groupSize)
     {
-        if (gameEnded) return;
+        if (GameEnded) return;
 
-        score += pointsPerMatch;
+        Score += PointsPerMatch;
         UpdateScoreUI();
 
-        if (score >= winScore)
+        if (Score >= WinScore)
         {
             EndGame(true);
         }
@@ -44,11 +46,11 @@ public class GameManager : MonoBehaviour
 
     public void CircleMissed()
     {
-        if (gameEnded) return;
+        if (GameEnded) return;
 
-        missCount++;
+        MissCount++;
 
-        if (missCount >= maxMisses)
+        if (MissCount >= MaxMisses)
         {
             EndGame(false);
         }
@@ -56,24 +58,43 @@ public class GameManager : MonoBehaviour
 
     void EndGame(bool won)
     {
-        gameEnded = true;
+        GameEnded = true;
         Time.timeScale = 0f;
-        gameOverPanel.SetActive(true);
+        GameOverPanel.SetActive(true);
 
         if (won)
         {
-            resultText.text = "FLOOR CLEARED";
-            nextLevelButton.SetActive(true);
+            ResultText.text = "FLOOR CLEARED";
+            NextLevelButton.SetActive(true);
+            RetryLevelButton.SetActive(false);
         }
         else
         {
-            resultText.text = "FLOOR FAILED";
-            nextLevelButton.SetActive(false);
+            ResultText.text = "FLOOR FAILED";
+            NextLevelButton.SetActive(false);
+            RetryLevelButton.SetActive(true);
         }
+    }
+
+    public void RetryLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+       SceneManager.LoadScene("MainMenu");
     }
 
     void UpdateScoreUI()
     {
-        scoreText.text = "Score: " + score;
+        ScoreText.text = "Score: " + Score;
     }
 }
