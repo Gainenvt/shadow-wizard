@@ -4,25 +4,29 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
     public int missCount = 0;
     public int maxMisses = 7;
     public bool gameEnded = false;
+
     public int score = 0;
     public int pointsPerMatch = 2;
     public int winScore = 20;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI resultText;
-    public TextMeshProUGUI missText;     
+    public GameObject gameOverPanel;
+    public GameObject nextLevelButton;
 
     void Awake()
     {
         Instance = this;
-        Debug.Log("GameManager Initialized");
     }
 
     void Start()
     {
         UpdateScoreUI();
+        gameOverPanel.SetActive(false);
     }
 
     public void AddMatchScore(int groupSize)
@@ -30,23 +34,11 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
 
         score += pointsPerMatch;
-
         UpdateScoreUI();
 
-        if (score >= winScore && !gameEnded)
+        if (score >= winScore)
         {
-            gameEnded = true;
-            resultText.text = "STAGE CLEARED";
-            Debug.Log("Floor Cleared!");
-            Time.timeScale = 0f; // Pause the game
-        }
-    }
-
-    void UpdateScoreUI()
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + score;
+            EndGame(true);
         }
     }
 
@@ -56,17 +48,32 @@ public class GameManager : MonoBehaviour
 
         missCount++;
 
-        if (missCount >= maxMisses && !gameEnded)
+        if (missCount >= maxMisses)
         {
-            gameEnded = true;
-            resultText.text = "FLOOR FAILED";
-            Debug.Log("Floor Failed!");
-            Time.timeScale = 0f; // Pause the game
-
-
+            EndGame(false);
         }
     }
 
+    void EndGame(bool won)
+    {
+        gameEnded = true;
+        Time.timeScale = 0f;
+        gameOverPanel.SetActive(true);
 
+        if (won)
+        {
+            resultText.text = "FLOOR CLEARED";
+            nextLevelButton.SetActive(true);
+        }
+        else
+        {
+            resultText.text = "FLOOR FAILED";
+            nextLevelButton.SetActive(false);
+        }
+    }
 
+    void UpdateScoreUI()
+    {
+        scoreText.text = "Score: " + score;
+    }
 }
