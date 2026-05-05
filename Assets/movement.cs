@@ -20,8 +20,7 @@ public class movement : MonoBehaviour
 		if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)
 			moveInput.y += 2;
 
-		if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed)
-			moveInput.y -= 2;
+		
 
 		if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
 			moveInput.x -= 2;
