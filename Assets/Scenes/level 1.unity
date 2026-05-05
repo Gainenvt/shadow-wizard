@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   MissCount: 0
-  MaxMisses: 7
+  MaxMisses: 14
   GameEnded: 0
   Score: 0
   PointsPerMatch: 4
@@ -281,6 +281,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110015982}
   m_CullTransparentMesh: 1
+--- !u!1 &140639123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 140639124}
+  m_Layer: 3
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &140639124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140639123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.018, y: -1.992, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2033375257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &181386113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -627,7 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 505573377}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Destroy line
   m_TagString: DestroyLine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1348,7 +1379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   MissCount: 0
-  MaxMisses: 7
+  MaxMisses: 14
   GameEnded: 0
   Score: 0
   PointsPerMatch: 4
@@ -1751,7 +1782,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
+  m_CompositeOperation: 3
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -1960,7 +1991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   MissCount: 0
-  MaxMisses: 20
+  MaxMisses: 14
   GameEnded: 0
   Score: 0
   PointsPerMatch: 4
@@ -2451,7 +2482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   MissCount: 0
-  MaxMisses: 7
+  MaxMisses: 14
   GameEnded: 0
   Score: 0
   PointsPerMatch: 4
@@ -2603,11 +2634,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2033375257}
   - component: {fileID: 2033375255}
+  - component: {fileID: 2033375261}
   - component: {fileID: 2033375254}
-  - component: {fileID: 2033375258}
   - component: {fileID: 2033375259}
   - component: {fileID: 2033375260}
-  - component: {fileID: 2033375261}
+  - component: {fileID: 2033375262}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -2686,7 +2717,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
@@ -2697,10 +2728,10 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!4 &2033375257
 Transform:
   m_ObjectHideFlags: 0
@@ -2713,22 +2744,10 @@ Transform:
   m_LocalPosition: {x: -0.14, y: -3.34, z: 0}
   m_LocalScale: {x: 0.5501939, y: 0.646783, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 140639124}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2033375258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033375253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e6a86839173ff42877f1f8670a45b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  moveSpeed: 10
 --- !u!114 &2033375259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2742,7 +2761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   interactRange: 10
-  moveSpeed: 10
+  moveSpeed: 12
   verticalRange: 10
 --- !u!114 &2033375260
 MonoBehaviour:
@@ -2806,8 +2825,27 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.97, y: 3.7}
+  m_Size: {x: 5.35, y: 3.35}
   m_EdgeRadius: 0
+--- !u!114 &2033375262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033375253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e6a86839173ff42877f1f8670a45b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::movement
+  moveSpeed: 20
+  jumpForce: 12
+  groundCheck: {fileID: 140639124}
+  groundRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2068080403
 GameObject:
   m_ObjectHideFlags: 0
