@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public int Score = 0;
     public int PointsPerMatch = 2;
-    public int WinScore = 20;
+    public int WinScore = 6;
 
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI ResultText;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject NextLevelButton;
     public GameObject RetryLevelButton;
     public GameObject MainMenuButton;
+    public GameObject TutorialPanel;
 
     void Awake()
     {
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
     {
         UpdateScoreUI();
         GameOverPanel.SetActive(false);
+        TutorialPanel.SetActive(true);
+        Time.timeScale = 0f; // Pause the game at the start
     }
 
     public void AddMatchScore(int groupSize)
@@ -79,6 +83,14 @@ public class GameManager : MonoBehaviour
             MainMenuButton.SetActive(true);
         }
     }
+    void Update()
+    {
+        if (TutorialPanel.activeSelf && Keyboard.current.anyKey.wasPressedThisFrame)
+        {
+            TutorialPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
 
     public void RetryLevel()
     {
@@ -89,7 +101,6 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("Level 2");
     }
 
@@ -101,6 +112,6 @@ public class GameManager : MonoBehaviour
 
     void UpdateScoreUI()
     {
-        ScoreText.text = "Score: " + Score;
+        ScoreText.text = "Matches: " + Score;
     }
 }
