@@ -17,12 +17,16 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI ResultText;
+
     public GameObject GameOverPanel;
     public GameObject NextLevelButton;
     public GameObject RetryLevelButton;
     public GameObject MainMenuButton;
     public GameObject TutorialPanel;
-
+    public GameObject PauseMenu;
+    public GameObject QuitButton;
+    private bool IsPaused = false;
+    private bool TutorialFinished = false;
     void Awake()
     {
         Instance = this;
@@ -31,9 +35,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UpdateScoreUI();
+
         GameOverPanel.SetActive(false);
         TutorialPanel.SetActive(true);
-        Time.timeScale = 0f; // Pause the game at the start
+        PauseMenu.SetActive(false);
+
+        Time.timeScale = 0f;
     }
 
     public void AddMatchScore(int groupSize)
@@ -64,40 +71,74 @@ public class GameManager : MonoBehaviour
     void EndGame(bool won)
     {
         GameEnded = true;
+
         Time.timeScale = 0f;
         GameOverPanel.SetActive(true);
 
         if (won)
         {
             ResultText.text = "FLOOR CLEARED";
+
             NextLevelButton.SetActive(true);
             RetryLevelButton.SetActive(false);
             MainMenuButton.SetActive(true);
-
         }
         else
         {
             ResultText.text = "FLOOR FAILED";
+
             NextLevelButton.SetActive(false);
             RetryLevelButton.SetActive(true);
             MainMenuButton.SetActive(true);
         }
     }
+
     void Update()
     {
-        if (TutorialPanel.activeSelf && Keyboard.current.anyKey.wasPressedThisFrame)
+     
+if (!TutorialFinished && TutorialPanel.activeSelf && Keyboard.current.anyKey.wasPressedThisFrame)
+{
+    TutorialPanel.SetActive(false);
+    TutorialFinished = true;
+    Time.timeScale = 1f;
+}
+
+        // Pause menu
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            TutorialPanel.SetActive(false);
-            Time.timeScale = 1f;
+            if (IsPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
         }
+    }
+
+    public void PauseGame()
+    {
+        PauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        IsPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        PauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        IsPaused = false;
     }
 
     public void RetryLevel()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         Debug.Log("Retrying level...");
     }
+
     public void NextLevel()
     {
         Time.timeScale = 1f;
@@ -107,7 +148,11 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
-       SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     void UpdateScoreUI()
