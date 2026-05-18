@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Collections;
 public class CircleController : MonoBehaviour
 {
 	private Rigidbody2D rb;
@@ -9,7 +9,6 @@ public class CircleController : MonoBehaviour
 	public bool canBeMoved = true;
 	public float touchCheckRadius = 1.2f;
 	public float pushForce = 5f;
-
     public enum CircleType { Fire, Wind, Darkness , Light }
 	public CircleType colorType;
 
@@ -26,6 +25,26 @@ public class CircleController : MonoBehaviour
 			FreezeCircle();
 		}
 	}
+	IEnumerator DestroyAnimation()
+{
+    float duration = 0.2f;
+    float timer = 0f;
+
+    Vector3 startScale = transform.localScale;
+
+    while (timer < duration)
+    {
+        timer += Time.deltaTime;
+
+        float scale = Mathf.Lerp(1f, 0f, timer / duration);
+
+        transform.localScale = startScale * scale;
+
+        yield return null;
+    }
+
+    Destroy(gameObject);
+}
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -75,7 +94,7 @@ public class CircleController : MonoBehaviour
 
             foreach (CircleController c in group)
             {
-                Destroy(c.gameObject);
+               StartCoroutine(c.DestroyAnimation());
             }
         }
     }

@@ -96,7 +96,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
      
-if (!TutorialFinished && TutorialPanel.activeSelf && Keyboard.current.anyKey.wasPressedThisFrame)
+if (!TutorialFinished &&
+    TutorialPanel.activeSelf &&
+    !Keyboard.current.escapeKey.wasPressedThisFrame &&
+    Keyboard.current.anyKey.wasPressedThisFrame)
 {
     TutorialPanel.SetActive(false);
     TutorialFinished = true;
@@ -104,7 +107,7 @@ if (!TutorialFinished && TutorialPanel.activeSelf && Keyboard.current.anyKey.was
 }
 
         // Pause menu
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+       if (TutorialFinished && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (IsPaused)
             {

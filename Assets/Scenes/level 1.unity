@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   MissCount: 0
-  MaxMisses: 14
+  MaxMisses: 7
   GameEnded: 0
   Score: 0
   PointsPerMatch: 1
@@ -2503,7 +2503,7 @@ MonoBehaviour:
   MaxMisses: 7
   GameEnded: 0
   Score: 0
-  PointsPerMatch: 2
+  PointsPerMatch: 1
   WinScore: 6
   ScoreText: {fileID: 919871415}
   ResultText: {fileID: 1839846663}
@@ -2725,7 +2725,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
   m_UseReflectionProbes: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
