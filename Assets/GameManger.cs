@@ -2,9 +2,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
-{
+
+{private Material scoreMaterial;
+
     public static GameManager Instance;
 
     public int MissCount = 0;
@@ -33,9 +36,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+    {   scoreMaterial = ScoreText.fontMaterial;
         UpdateScoreUI();
-
         GameOverPanel.SetActive(false);
         TutorialPanel.SetActive(true);
         PauseMenu.SetActive(false);
@@ -157,9 +159,30 @@ if (!TutorialFinished &&
     {
         Application.Quit();
     }
+    IEnumerator ScoreGlowEffect()
+{
+    Vector3 originalScale = ScoreText.transform.localScale;
+
+    float originalGlow = scoreMaterial.GetFloat(ShaderUtilities.ID_GlowPower);
+
+    // BIGGER TEXT
+    ScoreText.transform.localScale = originalScale * 1.2f;
+
+    // STRONGER GLOW
+    scoreMaterial.SetFloat(ShaderUtilities.ID_GlowPower, 1.5f);
+
+    yield return new WaitForSeconds(0.15f);
+
+    // RESET
+    ScoreText.transform.localScale = originalScale;
+
+    scoreMaterial.SetFloat(ShaderUtilities.ID_GlowPower, originalGlow);
+}
+
 
     void UpdateScoreUI()
     {
         ScoreText.text = "Matches: " + Score;
+        StartCoroutine(ScoreGlowEffect());
     }
 }

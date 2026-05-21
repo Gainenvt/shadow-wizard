@@ -9,7 +9,7 @@ public class CircleController : MonoBehaviour
 	public bool canBeMoved = true;
 	public float touchCheckRadius = 1.2f;
 	public float pushForce = 5f;
-    public enum CircleType { Fire, Wind, Darkness , Light }
+    public enum CircleType { Fire, Wind, Darkness , Light , Cursed}
 	public CircleType colorType;
 
 
