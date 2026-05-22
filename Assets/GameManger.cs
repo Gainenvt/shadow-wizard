@@ -1,72 +1,117 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public int missCount = 0;
-    public int maxMisses = 7;
-    public bool gameEnded = false;
-    public int score = 0;
-    public int pointsPerMatch = 2;
-    public int winScore = 20;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI resultText;
-    public TextMeshProUGUI missText;     
+
+    public int MissCount = 0;
+    public int MaxMisses = 7;
+    public bool GameEnded = false;
+
+    public int Score = 0;
+    public int PointsPerMatch = 2;
+    public int WinScore = 6;
+
+    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI ResultText;
+    public GameObject GameOverPanel;
+    public GameObject NextLevelButton;
+    public GameObject RetryLevelButton;
+    public GameObject MainMenuButton;
+    public GameObject TutorialPanel;
 
     void Awake()
     {
         Instance = this;
-        Debug.Log("GameManager Initialized");
     }
 
     void Start()
     {
         UpdateScoreUI();
+        GameOverPanel.SetActive(false);
+        TutorialPanel.SetActive(true);
+        Time.timeScale = 0f; // Pause the game at the start
     }
 
     public void AddMatchScore(int groupSize)
     {
-        if (gameEnded) return;
+        if (GameEnded) return;
 
-        score += pointsPerMatch;
-
+        Score += PointsPerMatch;
         UpdateScoreUI();
 
-        if (score >= winScore && !gameEnded)
+        if (Score >= WinScore)
         {
-            gameEnded = true;
-            resultText.text = "STAGE CLEARED";
-            Debug.Log("Floor Cleared!");
-            Time.timeScale = 0f; // Pause the game
-        }
-    }
-
-    void UpdateScoreUI()
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + score;
+            EndGame(true);
         }
     }
 
     public void CircleMissed()
     {
-        if (gameEnded) return;
+        if (GameEnded) return;
 
-        missCount++;
+        MissCount++;
 
-        if (missCount >= maxMisses && !gameEnded)
+        if (MissCount >= MaxMisses)
         {
-            gameEnded = true;
-            resultText.text = "FLOOR FAILED";
-            Debug.Log("Floor Failed!");
-            Time.timeScale = 0f; // Pause the game
-
-
+            EndGame(false);
         }
     }
 
+    void EndGame(bool won)
+    {
+        GameEnded = true;
+        Time.timeScale = 0f;
+        GameOverPanel.SetActive(true);
 
+        if (won)
+        {
+            ResultText.text = "FLOOR CLEARED";
+            NextLevelButton.SetActive(true);
+            RetryLevelButton.SetActive(false);
+            MainMenuButton.SetActive(true);
 
+        }
+        else
+        {
+            ResultText.text = "FLOOR FAILED";
+            NextLevelButton.SetActive(false);
+            RetryLevelButton.SetActive(true);
+            MainMenuButton.SetActive(true);
+        }
+    }
+    void Update()
+    {
+        if (TutorialPanel.activeSelf && Keyboard.current.anyKey.wasPressedThisFrame)
+        {
+            TutorialPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void RetryLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Retrying level...");
+    }
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level 2");
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+       SceneManager.LoadScene("MainMenu");
+    }
+
+    void UpdateScoreUI()
+    {
+        ScoreText.text = "Matches: " + Score;
+    }
 }
