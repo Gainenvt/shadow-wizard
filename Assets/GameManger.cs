@@ -7,32 +7,25 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     private Material scoreMaterial;
-
     public static GameManager Instance;
-
     public int MissCount = 0;
     public int MaxMisses = 7;
     public bool GameEnded = false;
-
     public int Score = 0;
     public int PointsPerMatch = 2;
     public int WinScore = 6;
-
+    public TextMeshProUGUI TutorialText;
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI ResultText;
-
     public GameObject GameOverPanel;
     public GameObject NextLevelButton;
     public GameObject RetryLevelButton;
     public GameObject MainMenuButton;
-
-    public GameObject TutorialPanel;
-
     public GameObject PauseMenu;
-    public GameObject QuitButton;
 
     private bool IsPaused = false;
-    private bool TutorialFinished = false;
+
+    private Coroutine glowCoroutine;
 
     void Awake()
     {
@@ -43,13 +36,43 @@ public class GameManager : MonoBehaviour
     {
         scoreMaterial = ScoreText.fontMaterial;
 
-        UpdateScoreUI();
+        ScoreText.text = "Matches: " + Score;
 
         GameOverPanel.SetActive(false);
-        TutorialPanel.SetActive(true);
         PauseMenu.SetActive(false);
+        if (TutorialText != null)
+        {
+        StartCoroutine(TutorialFade());
+        }
+        Time.timeScale = 1f;
 
-        Time.timeScale = 0f;
+
+
+    }
+
+    void Update()
+    {
+         if (Keyboard.current == null)
+        return;
+
+    // Pause State
+    if (IsPaused)
+    {
+        if (Keyboard.current.escapeKey.wasReleasedThisFrame)
+        {
+            ResumeGame();
+        }
+
+        return;
+    }
+
+    // Gameplay State
+    if (Keyboard.current.escapeKey.wasReleasedThisFrame)
+    {
+        PauseGame();
+
+        return;
+    }
     }
 
     public void AddMatchScore(int groupSize)
@@ -104,38 +127,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Tutorial panel
-        if (!TutorialFinished &&
-            TutorialPanel.activeSelf &&
-            !Keyboard.current.escapeKey.wasPressedThisFrame &&
-            Keyboard.current.anyKey.wasPressedThisFrame)
-        {
-            TutorialPanel.SetActive(false);
-
-            TutorialFinished = true;
-
-            Time.timeScale = 1f;
-        }
-
-        // Pause menu
-        if (TutorialFinished &&
-            Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (IsPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
-    }
-
     public void PauseGame()
     {
+        if (GameEnded) return;
+
         PauseMenu.SetActive(true);
 
         Time.timeScale = 0f;
@@ -156,7 +151,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
 
         Debug.Log("Retrying level...");
     }
@@ -182,21 +179,29 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ScoreGlowEffect()
     {
-        Vector3 originalScale = ScoreText.transform.localScale;
+        Vector3 originalScale =
+            ScoreText.transform.localScale;
 
         float originalGlow =
-            scoreMaterial.GetFloat(ShaderUtilities.ID_GlowPower);
+            scoreMaterial.GetFloat(
+                ShaderUtilities.ID_GlowPower
+            );
 
         // Bigger text
-        ScoreText.transform.localScale = originalScale * 1.2f;
+        ScoreText.transform.localScale =
+            originalScale * 1.2f;
 
         // Stronger glow
-        scoreMaterial.SetFloat(ShaderUtilities.ID_GlowPower, 1.5f);
+        scoreMaterial.SetFloat(
+            ShaderUtilities.ID_GlowPower,
+            1.5f
+        );
 
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSecondsRealtime(0.15f);
 
         // Reset
-        ScoreText.transform.localScale = originalScale;
+        ScoreText.transform.localScale =
+            originalScale;
 
         scoreMaterial.SetFloat(
             ShaderUtilities.ID_GlowPower,
@@ -208,6 +213,43 @@ public class GameManager : MonoBehaviour
     {
         ScoreText.text = "Matches: " + Score;
 
-        StartCoroutine(ScoreGlowEffect());
+        if (glowCoroutine != null)
+        {
+            StopCoroutine(glowCoroutine);
+        }
+
+        glowCoroutine =
+            StartCoroutine(ScoreGlowEffect());
     }
+    IEnumerator TutorialFade()
+{
+    // Start fully visible
+    Color textColor = TutorialText.color;
+
+    textColor.a = 1f;
+
+    TutorialText.color = textColor;
+
+    // Stay visible briefly
+    yield return new WaitForSecondsRealtime(3f);
+    float duration = 2f;
+
+    float timer = 0f;
+
+    while (timer < duration)
+    {
+        timer += Time.unscaledDeltaTime;
+
+        float alpha =
+            Mathf.Lerp(1f, 0f, timer / duration);
+
+        textColor.a = alpha;
+
+        TutorialText.color = textColor;
+
+        yield return null;
+    }
+
+    TutorialText.gameObject.SetActive(false);
+}
 }
