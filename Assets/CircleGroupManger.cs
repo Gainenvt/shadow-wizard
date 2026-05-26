@@ -6,7 +6,6 @@ public class CircleGroupManager : MonoBehaviour
 {
     public static CircleGroupManager Instance;
 
-    public GameObject destroyParticles;
     
 
     public float destroyHeight = -10f;
@@ -44,9 +43,7 @@ public class CircleGroupManager : MonoBehaviour
             {
                 c.enabled = false;
 
-                if (destroyParticles != null)
-                    Instantiate(destroyParticles, c.transform.position, Quaternion.identity);
-                Debug.Log("DestroyingParticles");
+                
 
 
 

@@ -455,9 +455,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1686967911}
     m_Modifications:
+    - target: {fileID: 515837473271395413, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
+      propertyPath: destroyParticles
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5270624227473467455, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
       propertyPath: m_Name
       value: Circle_Darkness
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344663747463254396, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
+      propertyPath: destroyParticles
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8461220895943496037, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1497,7 +1505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 233}
+  m_AnchoredPosition: {x: -54, y: 201}
   m_SizeDelta: {x: 332.4528, y: 46.9233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712208169
@@ -2434,7 +2442,7 @@ MonoBehaviour:
   Score: 0
   PointsPerMatch: 1
   WinScore: 6
-  TutorialText: {fileID: 0}
+  TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
   ResultText: {fileID: 1839846663}
   GameOverPanel: {fileID: 707194395}
@@ -3045,7 +3053,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839846660}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -3600,6 +3608,7 @@ MonoBehaviour:
   canBeMoved: 1
   touchCheckRadius: 0.05
   pushForce: 2
+  destroyParticles: {fileID: 0}
   colorType: 0
   hasBeenCounted: 0
 --- !u!61 &2033375261
@@ -3808,9 +3817,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1686967911}
     m_Modifications:
+    - target: {fileID: 515837473271395413, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
+      propertyPath: destroyParticles
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5270624227473467455, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
       propertyPath: m_Name
       value: Circle_Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344663747463254396, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
+      propertyPath: destroyParticles
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8461220895943496037, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3870,9 +3887,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1686967911}
     m_Modifications:
+    - target: {fileID: 515837473271395413, guid: a325dc889cc3afd40ad28355894bf365, type: 3}
+      propertyPath: destroyParticles
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5270624227473467455, guid: a325dc889cc3afd40ad28355894bf365, type: 3}
       propertyPath: m_Name
       value: Circle_Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344663747463254396, guid: a325dc889cc3afd40ad28355894bf365, type: 3}
+      propertyPath: destroyParticles
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8461220895943496037, guid: a325dc889cc3afd40ad28355894bf365, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3932,9 +3957,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1686967911}
     m_Modifications:
+    - target: {fileID: 515837473271395413, guid: 04059527e9de9c843a6b08f54e71df65, type: 3}
+      propertyPath: destroyParticles
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5270624227473467455, guid: 04059527e9de9c843a6b08f54e71df65, type: 3}
       propertyPath: m_Name
       value: Circle_Wind
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344663747463254396, guid: 04059527e9de9c843a6b08f54e71df65, type: 3}
+      propertyPath: destroyParticles
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8461220895943496037, guid: 04059527e9de9c843a6b08f54e71df65, type: 3}
       propertyPath: m_LocalPosition.x

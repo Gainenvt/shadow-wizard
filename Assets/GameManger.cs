@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject RetryLevelButton;
     public GameObject MainMenuButton;
     public GameObject PauseMenu;
+    
 
     private bool IsPaused = false;
 

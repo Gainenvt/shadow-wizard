@@ -1,66 +1,94 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class CircleController : MonoBehaviour
 {
-	private Rigidbody2D rb;
+    private Rigidbody2D rb;
+    public Color orbColor;
+    public bool isFrozen = false;
+    public bool canBeMoved = true;
 
-	public bool isFrozen = false;
-	public bool canBeMoved = true;
-	public float touchCheckRadius = 1.2f;
-	public float pushForce = 5f;
+    public float touchCheckRadius = 1.2f;
+    public float pushForce = 5f;
 
-    public enum CircleType { Fire, Wind, Darkness , Light }
-	public CircleType colorType;
+    public GameObject destroyParticles;
 
+    public enum CircleType
+    {
+        Fire,
+        Wind,
+        Darkness,
+        Light
+    }
 
-	void Start()
-	{
-		rb = GetComponent<Rigidbody2D>();
-	}
+    public CircleType colorType;
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.CompareTag("FreezeLine"))
-		{
-			FreezeCircle();
-		}
-	}
+    public bool hasBeenCounted = false;
 
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-		CircleController otherCircle = collision.gameObject.GetComponent<CircleController>();
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-		if (otherCircle != null)
-		{
-			// Freeze spreading
-			if (otherCircle.isFrozen && !isFrozen)
-			{
-				FreezeCircle();
-			}
-		}
+    void Update()
+    {
+        if (transform.position.y < -4f)
+        {
+            GameManager.Instance.CircleMissed();
+            Destroy(gameObject);
+        }
+    }
 
-		// Match checking
-		if (collision.gameObject.CompareTag("circle"))
-		{
-			CircleController other = collision.gameObject.GetComponent<CircleController>();
-		}
-	}
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("FreezeLine"))
+        {
+            FreezeCircle();
+        }
+    }
 
-	void OnCollisionStay2D(Collision2D collision)
-	{
-		if (collision.gameObject.CompareTag("Player") && canBeMoved)
-		{
-			Vector2 direction = (transform.position - collision.transform.position);
-			direction.y = 0;
-			direction = direction.normalized;
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        CircleController otherCircle =
+            collision.gameObject.GetComponent<CircleController>();
 
-			rb.linearVelocity = new Vector2(direction.x * pushForce, rb.linearVelocity.y);
-		}
-	}
+        if (otherCircle != null)
+        {
+            // Freeze spreading
+            if (otherCircle.isFrozen && !isFrozen)
+            {
+                FreezeCircle();
+            }
+        }
+
+        // Match checking
+        if (collision.gameObject.CompareTag("circle"))
+        {
+            CircleController other =
+                collision.gameObject.GetComponent<CircleController>();
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && canBeMoved)
+        {
+            Vector2 direction =
+                (transform.position - collision.transform.position);
+
+            direction.y = 0;
+            direction = direction.normalized;
+
+            rb.linearVelocity =
+                new Vector2(direction.x * pushForce, rb.linearVelocity.y);
+        }
+    }
+
     void TryMatch()
     {
-        if (!isFrozen) return;
+        if (!isFrozen)
+            return;
 
         CheckMatch();
     }
@@ -75,10 +103,11 @@ public class CircleController : MonoBehaviour
 
             foreach (CircleController c in group)
             {
-                Destroy(c.gameObject);
+                StartCoroutine(c.DestroyAnimation());
             }
         }
     }
+
     List<CircleController> GetConnectedCircles()
     {
         List<CircleController> result = new List<CircleController>();
@@ -91,11 +120,16 @@ public class CircleController : MonoBehaviour
         {
             CircleController current = queue.Dequeue();
 
-            Collider2D[] hits = Physics2D.OverlapCircleAll(current.transform.position, touchCheckRadius);
+            Collider2D[] hits =
+                Physics2D.OverlapCircleAll(
+                    current.transform.position,
+                    touchCheckRadius
+                );
 
             foreach (Collider2D hit in hits)
             {
-                CircleController other = hit.GetComponent<CircleController>();
+                CircleController other =
+                    hit.GetComponent<CircleController>();
 
                 if (other != null &&
                     other.colorType == this.colorType &&
@@ -111,29 +145,61 @@ public class CircleController : MonoBehaviour
     }
 
     void FreezeCircle()
-	{
-		if (isFrozen) return; 
-
-		isFrozen = true;
-		canBeMoved = false;
-
-		rb.linearVelocity = Vector2.zero;
-		rb.angularVelocity = 0f;
-		rb.gravityScale = 0f;
-		rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-		Invoke(nameof(TryMatch), 0.2f);
-	}
-
-
-    public bool hasBeenCounted = false;
-    void Update()
     {
-        if (transform.position.y < -4f)
-        {
-            GameManager.Instance.CircleMissed();
-            Destroy(gameObject);
-        }
-    }
+        if (isFrozen)
+            return;
+
+        isFrozen = true;
+        canBeMoved = false;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.gravityScale = 0f;
+
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        Invoke(nameof(TryMatch), 0.2f);
     }
 
+    IEnumerator DestroyAnimation()
+    {
+        float duration = 0.2f;
+
+        float timer = 0f;
+
+        Vector3 startScale = transform.localScale;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+
+            float scale =
+                Mathf.Lerp(1f, 0f, timer / duration);
+
+            transform.localScale = startScale * scale;
+
+            yield return null;
+        }
+
+        Instantiate(
+            destroyParticles,
+            transform.position,
+            Quaternion.identity
+        );
+        GameObject particles = Instantiate(
+        destroyParticles,
+        transform.position,
+        Quaternion.identity
+        );
+
+ParticleSystem ps =
+    particles.GetComponent<ParticleSystem>();
+
+var main = ps.main;
+
+main.startColor = orbColor;
+
+Destroy(gameObject);
+
+    }
+}
