@@ -466,7 +466,7 @@ PrefabInstance:
     - target: {fileID: 7344663747463254396, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
       propertyPath: destroyParticles
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4768373575513584862, guid: 200b6010c50fc9446b09f1cad4228560, type: 3}
     - target: {fileID: 8461220895943496037, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.01
@@ -3604,6 +3604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066e319789b84b94f8d7f82f5e16a84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircleController
+  orbColor: {r: 0, g: 0, b: 0, a: 0}
   isFrozen: 0
   canBeMoved: 1
   touchCheckRadius: 0.05
@@ -3828,7 +3829,7 @@ PrefabInstance:
     - target: {fileID: 7344663747463254396, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
       propertyPath: destroyParticles
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4768373575513584862, guid: 200b6010c50fc9446b09f1cad4228560, type: 3}
     - target: {fileID: 8461220895943496037, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.8743496
@@ -3898,7 +3899,7 @@ PrefabInstance:
     - target: {fileID: 7344663747463254396, guid: a325dc889cc3afd40ad28355894bf365, type: 3}
       propertyPath: destroyParticles
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4768373575513584862, guid: 200b6010c50fc9446b09f1cad4228560, type: 3}
     - target: {fileID: 8461220895943496037, guid: a325dc889cc3afd40ad28355894bf365, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.8743496
@@ -3968,7 +3969,7 @@ PrefabInstance:
     - target: {fileID: 7344663747463254396, guid: 04059527e9de9c843a6b08f54e71df65, type: 3}
       propertyPath: destroyParticles
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4768373575513584862, guid: 200b6010c50fc9446b09f1cad4228560, type: 3}
     - target: {fileID: 8461220895943496037, guid: 04059527e9de9c843a6b08f54e71df65, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.8743496
