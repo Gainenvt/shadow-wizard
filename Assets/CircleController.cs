@@ -17,9 +17,10 @@ public class CircleController : MonoBehaviour
     public enum CircleType
     {
         Fire,
-        Wind,
+        Lightning,
         Darkness,
-        Light
+        Light,
+        Cursed,
     }
 
     public CircleType colorType;
@@ -34,10 +35,19 @@ public class CircleController : MonoBehaviour
     void Update()
     {
         if (transform.position.y < -4f)
-        {
-            GameManager.Instance.CircleMissed();
-            Destroy(gameObject);
-        }
+{
+    if (colorType == CircleType.Cursed)
+    {
+        GameManager.Instance.Score -= 1;
+        GameManager.Instance.UpdateScoreUI();
+    }
+    else
+    {
+        GameManager.Instance.CircleMissed();
+    }
+
+    Destroy(gameObject);
+}
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -99,7 +109,24 @@ public class CircleController : MonoBehaviour
 
         if (group.Count >= 3)
         {
-            GameManager.Instance.AddMatchScore(group.Count);
+            bool hasCursedOrb = false;
+
+foreach (CircleController c in group)
+{
+    if (c.colorType == CircleType.Cursed)
+    {
+        hasCursedOrb = true;
+    }
+}
+            if (hasCursedOrb)
+{
+    GameManager.Instance.Score -= 1;
+    GameManager.Instance.UpdateScoreUI();
+}
+else
+{
+    GameManager.Instance.AddMatchScore(group.Count);
+}
 
             foreach (CircleController c in group)
             {
@@ -132,12 +159,16 @@ public class CircleController : MonoBehaviour
                     hit.GetComponent<CircleController>();
 
                 if (other != null &&
-                    other.colorType == this.colorType &&
-                    !result.Contains(other))
-                {
-                    result.Add(other);
-                    queue.Enqueue(other);
-                }
+(
+    other.colorType == this.colorType ||
+    other.colorType == CircleType.Cursed ||
+    this.colorType == CircleType.Cursed
+)
+&& !result.Contains(other))
+{
+    result.Add(other);
+    queue.Enqueue(other);
+}
             }
         }
 
@@ -181,11 +212,8 @@ public class CircleController : MonoBehaviour
             yield return null;
         }
 
-        Instantiate(
-            destroyParticles,
-            transform.position,
-            Quaternion.identity
-        );
+       
+        
         GameObject particles = Instantiate(
         destroyParticles,
         transform.position,

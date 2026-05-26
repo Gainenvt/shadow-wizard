@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 3708059559475928532}
   - component: {fileID: 7344663747463254396}
   - component: {fileID: 515837473271395413}
-  - component: {fileID: -8583011822785832206}
-  - component: {fileID: -1790908789963039118}
+  - component: {fileID: 4149378843874539980}
+  - component: {fileID: -700500521865946460}
   m_Layer: 6
-  m_Name: Circle_Light
+  m_Name: Circle_Lightning
   m_TagString: circle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 362e99e80c5831e47907d0d099214ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9293728, b: 0.03459108, a: 0.98039216}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,13 +123,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066e319789b84b94f8d7f82f5e16a84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircleController
-  orbColor: {r: 1, g: 1, b: 1, a: 0}
+  orbColor: {r: 0.99371064, g: 0.97865444, b: 0, a: 1}
   isFrozen: 0
   canBeMoved: 1
   touchCheckRadius: 0.8
   pushForce: 5
   destroyParticles: {fileID: 4768373575513584862, guid: 200b6010c50fc9446b09f1cad4228560, type: 3}
-  colorType: 3
+  colorType: 1
   hasBeenCounted: 0
 --- !u!114 &515837473271395413
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircleGroupManager
   destroyHeight: -4.1
---- !u!50 &-8583011822785832206
+--- !u!50 &4149378843874539980
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -171,7 +171,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &-1790908789963039118
+--- !u!58 &-700500521865946460
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

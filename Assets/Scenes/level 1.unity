@@ -316,6 +316,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!114 &110015985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1635,6 +1636,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!1 &919871412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1701,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!114 &919871415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2450,6 +2453,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!4 &1263261240
 Transform:
   m_ObjectHideFlags: 0
@@ -2919,6 +2923,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!1 &1686967909
 GameObject:
   m_ObjectHideFlags: 0
@@ -3046,6 +3051,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!114 &1839846663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3570,7 +3576,7 @@ Transform:
   m_GameObject: {fileID: 2033375253}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14, y: -3.34, z: 0}
+  m_LocalPosition: {x: 0.177, y: -3.43, z: 0}
   m_LocalScale: {x: 0.5501939, y: 0.646783, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3656,7 +3662,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.35, y: 3.35}
+  m_Size: {x: 4.85, y: 3.35}
   m_EdgeRadius: 0
 --- !u!114 &2033375262
 MonoBehaviour:
@@ -3671,7 +3677,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::movement
   moveSpeed: 20
-  jumpForce: 12
   groundCheck: {fileID: 140639124}
   groundRadius: 0.2
   groundLayer:

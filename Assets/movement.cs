@@ -6,7 +6,6 @@ public class movement : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector2 moveInput;
     private Rigidbody2D rb;
-    public float jumpForce = 10f;
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
@@ -32,18 +31,21 @@ public class movement : MonoBehaviour
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
-        if (Keyboard.current.wKey.isPressed && isGrounded)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        }
+       
     }
 
-    void FixedUpdate()
+   void FixedUpdate()
+{
+    if (GameManager.Instance.IsGamePaused())
     {
-        Vector2 velocity = rb.linearVelocity;
-
-        velocity.x = moveInput.x * moveSpeed;
-
-        rb.linearVelocity = velocity;
+        rb.linearVelocity = Vector2.zero;
+        return;
     }
+
+    Vector2 velocity = rb.linearVelocity;
+
+    velocity.x = moveInput.x * moveSpeed;
+
+    rb.linearVelocity = velocity;
+}
 }

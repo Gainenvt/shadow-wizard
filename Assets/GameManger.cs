@@ -24,7 +24,12 @@ public class GameManager : MonoBehaviour
     public GameObject PauseMenu;
     
 
-    private bool IsPaused = false;
+    public bool IsPaused = false;
+    public bool IsGamePaused()
+{
+    return IsPaused;
+}
+    
 
     private Coroutine glowCoroutine;
 
@@ -36,11 +41,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scoreMaterial = ScoreText.fontMaterial;
-
         ScoreText.text = "Matches: " + Score;
-
         GameOverPanel.SetActive(false);
-        PauseMenu.SetActive(false);
+        
         if (TutorialText != null)
         {
         StartCoroutine(TutorialFade());
@@ -73,6 +76,7 @@ public class GameManager : MonoBehaviour
         PauseGame();
 
         return;
+
     }
     }
 
@@ -129,14 +133,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void PauseGame()
-    {
-        if (GameEnded) return;
-
-        PauseMenu.SetActive(true);
-
+    { if (GameEnded) return;
+        
+        IsPaused = true;    
         Time.timeScale = 0f;
-
-        IsPaused = true;
+        PauseMenu.SetActive(true);
+        
     }
 
     public void ResumeGame()
@@ -210,7 +212,7 @@ public class GameManager : MonoBehaviour
         );
     }
 
-    void UpdateScoreUI()
+    public void UpdateScoreUI()
     {
         ScoreText.text = "Matches: " + Score;
 
