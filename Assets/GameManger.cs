@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
     private Material scoreMaterial;
     public static GameManager Instance;
     public int MissCount = 0;
-    public int MaxMisses = 7;
+    public int MaxMisses = 8;
     public bool GameEnded = false;
     public int Score = 0;
-    public int PointsPerMatch = 2;
+    public int PointsPerMatch = 1;
     public int WinScore = 6;
     public TextMeshProUGUI TutorialText;
     public TextMeshProUGUI ScoreText;
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public bool IsGamePaused()
 {
     return IsPaused;
+    
 }
     
 
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    }
+    } 
 
     void Update()
     {
@@ -84,14 +85,29 @@ public class GameManager : MonoBehaviour
     {
         if (GameEnded) return;
 
-        Score += PointsPerMatch;
+int pointsEarned = 0;
 
+if (groupSize == 3)
+{
+    pointsEarned = 1;
+}
+else if (groupSize == 4)
+{
+    pointsEarned = 2;
+}
+else if (groupSize >= 5)
+{
+    pointsEarned = 3;
+}
+
+Score += pointsEarned;
         UpdateScoreUI();
 
         if (Score >= WinScore)
         {
             EndGame(true);
         }
+
     }
 
     public void CircleMissed()
@@ -106,7 +122,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void EndGame(bool won)
+    public void EndGame(bool won)
     {
         GameEnded = true;
 
@@ -133,22 +149,24 @@ public class GameManager : MonoBehaviour
     }
 
     public void PauseGame()
-    { if (GameEnded) return;
-        
-        IsPaused = true;    
-        Time.timeScale = 0f;
-        PauseMenu.SetActive(true);
-        
-    }
+{
+    if (GameEnded) return;
 
-    public void ResumeGame()
-    {
-        PauseMenu.SetActive(false);
+    IsPaused = true;
 
-        Time.timeScale = 1f;
+    Time.timeScale = 0f;
 
-        IsPaused = false;
-    }
+    PauseMenu.SetActive(true);
+}
+
+public void ResumeGame()
+{
+    IsPaused = false;
+
+    Time.timeScale = 1f;
+
+    PauseMenu.SetActive(false);
+}
 
     public void RetryLevel()
     {
@@ -165,7 +183,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("Level 2");
+        SceneManager.LoadScene(
+        SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void MainMenu()

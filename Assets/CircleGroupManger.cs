@@ -5,9 +5,6 @@ using UnityEngine;
 public class CircleGroupManager : MonoBehaviour
 {
     public static CircleGroupManager Instance;
-
-    
-
     public float destroyHeight = -10f;
 
     void Awake()

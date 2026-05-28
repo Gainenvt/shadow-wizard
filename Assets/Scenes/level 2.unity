@@ -316,6 +316,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!114 &110015985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1565,6 +1566,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!1 &919871412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,6 +1631,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!114 &919871415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1957,8 +1960,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1519845493}
   - {fileID: 712208168}
+  - {fileID: 1263261240}
+  - {fileID: 1519845493}
   - {fileID: 110015983}
   - {fileID: 1839846661}
   - {fileID: 919871413}
@@ -2380,6 +2384,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!4 &1263261240
 Transform:
   m_ObjectHideFlags: 0
@@ -2388,12 +2393,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263261238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.16, y: 6.82, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -968.23706, y: -513.02313, z: 0}
+  m_LocalScale: {x: 1.8148547, y: 1.8148547, z: 1.8148547}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1148899999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1410682869
 GameObject:
@@ -2755,7 +2760,6 @@ GameObject:
   - component: {fileID: 1669713218}
   - component: {fileID: 1669713220}
   - component: {fileID: 1669713219}
-  - component: {fileID: 1669713221}
   m_Layer: 5
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -2823,32 +2827,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669713217}
   m_CullTransparentMesh: 1
---- !u!114 &1669713221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669713217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebbb52d2c489ec3408161f42dcba1803, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  MissCount: 0
-  MaxMisses: 7
-  GameEnded: 0
-  Score: 0
-  PointsPerMatch: 2
-  WinScore: 6
-  TutorialText: {fileID: 712208169}
-  ScoreText: {fileID: 919871415}
-  ResultText: {fileID: 1839846663}
-  GameOverPanel: {fileID: 707194395}
-  NextLevelButton: {fileID: 2068080403}
-  RetryLevelButton: {fileID: 979957350}
-  MainMenuButton: {fileID: 1604596115}
-  PauseMenu: {fileID: 1669713217}
 --- !u!1 &1686967909
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,6 +2951,7 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  IsPaused: 0
 --- !u!114 &1839846663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3598,7 +3577,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::movement
   moveSpeed: 20
-  jumpForce: 12
   groundCheck: {fileID: 140639124}
   groundRadius: 0.2
   groundLayer:
@@ -3752,5 +3730,4 @@ SceneRoots:
   - {fileID: 1686967911}
   - {fileID: 505573377}
   - {fileID: 1844775878}
-  - {fileID: 1263261240}
   - {fileID: 1148899999}

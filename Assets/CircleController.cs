@@ -1,11 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class CircleController : MonoBehaviour
 {
     private Rigidbody2D rb;
+
     public Color orbColor;
+
     public bool isFrozen = false;
     public bool canBeMoved = true;
 
@@ -21,6 +23,7 @@ public class CircleController : MonoBehaviour
         Darkness,
         Light,
         Cursed,
+        Amp
     }
 
     public CircleType colorType;
@@ -34,12 +37,18 @@ public class CircleController : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < -4f)
+       if (transform.position.y < -4f)
 {
     if (colorType == CircleType.Cursed)
     {
         GameManager.Instance.Score -= 1;
+
         GameManager.Instance.UpdateScoreUI();
+
+        if (GameManager.Instance.Score <= -3)
+        {
+            GameManager.Instance.EndGame(false);
+        }
     }
     else
     {
@@ -65,18 +74,10 @@ public class CircleController : MonoBehaviour
 
         if (otherCircle != null)
         {
-            // Freeze spreading
             if (otherCircle.isFrozen && !isFrozen)
             {
                 FreezeCircle();
             }
-        }
-
-        // Match checking
-        if (collision.gameObject.CompareTag("circle"))
-        {
-            CircleController other =
-                collision.gameObject.GetComponent<CircleController>();
         }
     }
 
@@ -88,10 +89,14 @@ public class CircleController : MonoBehaviour
                 (transform.position - collision.transform.position);
 
             direction.y = 0;
+
             direction = direction.normalized;
 
             rb.linearVelocity =
-                new Vector2(direction.x * pushForce, rb.linearVelocity.y);
+                new Vector2(
+                    direction.x * pushForce,
+                    rb.linearVelocity.y
+                );
         }
     }
 
@@ -105,47 +110,72 @@ public class CircleController : MonoBehaviour
 
     void CheckMatch()
     {
-        List<CircleController> group = GetConnectedCircles();
+        List<CircleController> group =
+            GetConnectedCircles();
 
         if (group.Count >= 3)
         {
             bool hasCursedOrb = false;
-
-foreach (CircleController c in group)
-{
-    if (c.colorType == CircleType.Cursed)
-    {
-        hasCursedOrb = true;
-    }
-}
-            if (hasCursedOrb)
-{
-    GameManager.Instance.Score -= 1;
-    GameManager.Instance.UpdateScoreUI();
-}
-else
-{
-    GameManager.Instance.AddMatchScore(group.Count);
-}
+            bool hasAmpOrb = false;
 
             foreach (CircleController c in group)
             {
-                StartCoroutine(c.DestroyAnimation());
+                if (c.colorType == CircleType.Cursed)
+                {
+                    hasCursedOrb = true;
+                }
+
+                if (c.colorType == CircleType.Amp)
+                {
+                    hasAmpOrb = true;
+                }
+            }
+
+            if (hasCursedOrb)
+            {
+                GameManager.Instance.Score -= 1;
+
+                GameManager.Instance.UpdateScoreUI();
+
+                if (GameManager.Instance.Score <= -3)
+                {
+                 GameManager.Instance.EndGame(false);
+                }           
+            }
+            else
+            {
+                int bonus = hasAmpOrb ? 2 : 0;
+
+                GameManager.Instance.AddMatchScore(
+                    group.Count + bonus
+                );
+            }
+
+            foreach (CircleController c in group)
+            {
+                StartCoroutine(
+                    c.DestroyAnimation()
+                );
             }
         }
     }
 
     List<CircleController> GetConnectedCircles()
     {
-        List<CircleController> result = new List<CircleController>();
-        Queue<CircleController> queue = new Queue<CircleController>();
+        List<CircleController> result =
+            new List<CircleController>();
+
+        Queue<CircleController> queue =
+            new Queue<CircleController>();
 
         queue.Enqueue(this);
+
         result.Add(this);
 
         while (queue.Count > 0)
         {
-            CircleController current = queue.Dequeue();
+            CircleController current =
+                queue.Dequeue();
 
             Collider2D[] hits =
                 Physics2D.OverlapCircleAll(
@@ -158,17 +188,55 @@ else
                 CircleController other =
                     hit.GetComponent<CircleController>();
 
-                if (other != null &&
-(
-    other.colorType == this.colorType ||
-    other.colorType == CircleType.Cursed ||
-    this.colorType == CircleType.Cursed
-)
-&& !result.Contains(other))
-{
-    result.Add(other);
-    queue.Enqueue(other);
-}
+                if (other != null)
+                {
+                    bool canMatch =
+                    (
+                        other.colorType == this.colorType ||
+
+                        (
+                            other.colorType ==
+                            CircleType.Cursed &&
+
+                            this.colorType !=
+                            CircleType.Amp
+                        ) ||
+
+                        (
+                            this.colorType ==
+                            CircleType.Cursed &&
+
+                            other.colorType !=
+                            CircleType.Amp
+                        ) ||
+
+                        (
+                            other.colorType ==
+                            CircleType.Amp &&
+
+                            this.colorType !=
+                            CircleType.Cursed
+                        ) ||
+
+                        (
+                            this.colorType ==
+                            CircleType.Amp &&
+
+                            other.colorType !=
+                            CircleType.Cursed
+                        )
+                    );
+
+                    if (
+                        canMatch &&
+                        !result.Contains(other)
+                    )
+                    {
+                        result.Add(other);
+
+                        queue.Enqueue(other);
+                    }
+                }
             }
         }
 
@@ -181,13 +249,17 @@ else
             return;
 
         isFrozen = true;
+
         canBeMoved = false;
 
         rb.linearVelocity = Vector2.zero;
+
         rb.angularVelocity = 0f;
+
         rb.gravityScale = 0f;
 
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        rb.constraints =
+            RigidbodyConstraints2D.FreezeAll;
 
         Invoke(nameof(TryMatch), 0.2f);
     }
@@ -198,36 +270,40 @@ else
 
         float timer = 0f;
 
-        Vector3 startScale = transform.localScale;
+        Vector3 startScale =
+            transform.localScale;
 
         while (timer < duration)
         {
             timer += Time.deltaTime;
 
             float scale =
-                Mathf.Lerp(1f, 0f, timer / duration);
+                Mathf.Lerp(
+                    1f,
+                    0f,
+                    timer / duration
+                );
 
-            transform.localScale = startScale * scale;
+            transform.localScale =
+                startScale * scale;
 
             yield return null;
         }
 
-       
-        
-        GameObject particles = Instantiate(
-        destroyParticles,
-        transform.position,
-        Quaternion.identity
-        );
+        GameObject particles =
+            Instantiate(
+                destroyParticles,
+                transform.position,
+                Quaternion.identity
+            );
 
-ParticleSystem ps =
-    particles.GetComponent<ParticleSystem>();
+        ParticleSystem ps =
+            particles.GetComponent<ParticleSystem>();
 
-var main = ps.main;
+        var main = ps.main;
 
-main.startColor = orbColor;
+        main.startColor = orbColor;
 
-Destroy(gameObject);
-
+        Destroy(gameObject);
     }
 }
