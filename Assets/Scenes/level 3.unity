@@ -307,7 +307,7 @@ MonoBehaviour:
   GameEnded: 0
   Score: 0
   PointsPerMatch: 1
-  WinScore: 6
+  WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
   ResultText: {fileID: 1839846663}
@@ -1459,7 +1459,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'REACH 15 POINTS TO CLEAR '
+  m_text: 'REACH 15 POINTS TO CLEAR THIS FLOOR  NEW BLUE ORBS WILL AMPLIFIY NORMAL
+    MATCHES BY 1 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1621,7 +1622,7 @@ MonoBehaviour:
   GameEnded: 0
   Score: 0
   PointsPerMatch: 1
-  WinScore: 6
+  WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
   ResultText: {fileID: 1839846663}
@@ -2861,7 +2862,9 @@ MonoBehaviour:
   - {fileID: 5270624227473467455, guid: eee71d7b752413042ba712e4ca961d2f, type: 3}
   - {fileID: 5270624227473467455, guid: 8a5c5ba0fa891d444b7a4e64377036ff, type: 3}
   - {fileID: 5270624227473467455, guid: a32e44aa6c9ccc143818f57fc4c9294e, type: 3}
-  minSpawnTime: 2
+  - {fileID: 5270624227473467455, guid: a32e44aa6c9ccc143818f57fc4c9294e, type: 3}
+  - {fileID: 5270624227473467455, guid: 6c03d875ef599094f972c7e8f841f34b, type: 3}
+  minSpawnTime: 1
   maxSpawnTime: 4
   difficultyIncreaseRate: 0.01
   spawnZone: 0.5
@@ -2941,7 +2944,7 @@ MonoBehaviour:
   GameEnded: 0
   Score: 0
   PointsPerMatch: 1
-  WinScore: 6
+  WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
   ResultText: {fileID: 1839846663}
