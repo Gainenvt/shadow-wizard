@@ -286,9 +286,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 933, y: 325.78}
-  m_SizeDelta: {x: 623.6128, y: 376.488}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1269, y: 512}
+  m_SizeDelta: {x: 623.6128, y: 376.48804}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &110015984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Missed Orbs
+  m_text: Missed Orbs:0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1186,18 +1186,19 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'SPACE / A&D - PUSH ORBS
 
-    
 
-    MATCH 3 ORBS OF THE SAME COLOUR TO
-    SCORE
 
-    
+    MATCH 3 ORBS OF THE SAME COLOUR TO GET
+    A SCORE OF 6 TO PASS THE FLOOR
+
+
 
     MISS 6 ORBS TO FAIL THE FLOOR
 
-    
 
-    ESC - PAUSE GAME
+
+    ESC
+    - PAUSE GAME
 
 '
   m_isRightToLeft: 0
