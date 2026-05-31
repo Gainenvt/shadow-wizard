@@ -287,7 +287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 977, y: 355}
   m_SizeDelta: {x: 623.6128, y: 376.488}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &110015984
@@ -310,6 +310,7 @@ MonoBehaviour:
   WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
+  MissText: {fileID: 110015985}
   ResultText: {fileID: 1839846663}
   GameOverPanel: {fileID: 707194395}
   NextLevelButton: {fileID: 2068080403}
@@ -1211,7 +1212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -164.8, y: 329.5}
+  m_AnchoredPosition: {x: -111, y: 286}
   m_SizeDelta: {x: 332.4528, y: 0.5073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712208169
@@ -1234,8 +1235,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'REACH 15 POINTS TO CLEAR THIS FLOOR  NEW BLUE ORBS WILL AMPLIFIY NORMAL
-    MATCHES BY 1 '
+  m_text: 'REACH 15 POINTS TO CLEAR THIS FLOOR BLUE AMP ORBS INCREASE NORMAL MATCHES
+    BY +1
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1335,6 +1338,7 @@ MonoBehaviour:
   WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
+  MissText: {fileID: 110015985}
   ResultText: {fileID: 1839846663}
   GameOverPanel: {fileID: 707194395}
   NextLevelButton: {fileID: 2068080403}
@@ -1400,6 +1404,7 @@ MonoBehaviour:
   WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
+  MissText: {fileID: 110015985}
   ResultText: {fileID: 1839846663}
   GameOverPanel: {fileID: 707194395}
   NextLevelButton: {fileID: 2068080403}
@@ -2152,6 +2157,7 @@ MonoBehaviour:
   WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
+  MissText: {fileID: 110015985}
   ResultText: {fileID: 1839846663}
   GameOverPanel: {fileID: 707194395}
   NextLevelButton: {fileID: 2068080403}
@@ -2721,6 +2727,7 @@ MonoBehaviour:
   WinScore: 15
   TutorialText: {fileID: 712208169}
   ScoreText: {fileID: 919871415}
+  MissText: {fileID: 110015985}
   ResultText: {fileID: 1839846663}
   GameOverPanel: {fileID: 707194395}
   NextLevelButton: {fileID: 2068080403}

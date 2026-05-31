@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int WinScore = 6;
     public TextMeshProUGUI TutorialText;
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI MissText;
     public TextMeshProUGUI ResultText;
     public GameObject GameOverPanel;
     public GameObject NextLevelButton;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        MissText.text = "Missed Orbs: " + MissCount;
         scoreMaterial = ScoreText.fontMaterial;
         ScoreText.text = "Matches: " + Score;
         GameOverPanel.SetActive(false);
@@ -115,6 +117,7 @@ Score += pointsEarned;
         if (GameEnded) return;
 
         MissCount++;
+        MissText.text = "Missed Orbs: " + MissCount;
 
         if (MissCount >= MaxMisses)
         {
