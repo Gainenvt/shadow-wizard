@@ -10,7 +10,7 @@ public class CircleController : MonoBehaviour
 
     public bool isFrozen = false;
     public bool canBeMoved = true;
-
+    private bool isDestroying = false;
     public float touchCheckRadius = 1.2f;
     public float pushForce = 5f;
 
@@ -37,8 +37,10 @@ public class CircleController : MonoBehaviour
 
     void Update()
     {
-       if (transform.position.y < -4f)
+       if (transform.position.y < -4f && !isDestroying)
 {
+    isDestroying = true;
+    
     if (colorType == CircleType.Cursed)
     {
         GameManager.Instance.Score -= 1;
@@ -54,8 +56,9 @@ public class CircleController : MonoBehaviour
     {
         GameManager.Instance.CircleMissed();
     }
+    
 
-    Destroy(gameObject);
+    StartCoroutine(DestroyAnimation());
 }
     }
 

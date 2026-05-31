@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private Material scoreMaterial;
     public static GameManager Instance;
     public int MissCount = 0;
-    public int MaxMisses = 8;
+    public int MaxMisses = 14;
     public bool GameEnded = false;
     public int Score = 0;
     public int PointsPerMatch = 1;

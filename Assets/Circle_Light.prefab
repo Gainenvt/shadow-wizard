@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: 362e99e80c5831e47907d0d099214ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.0852586, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066e319789b84b94f8d7f82f5e16a84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircleController
-  orbColor: {r: 1, g: 1, b: 1, a: 0}
+  orbColor: {r: 0.07450981, g: 0, b: 1, a: 1}
   isFrozen: 0
   canBeMoved: 1
   touchCheckRadius: 0.8
