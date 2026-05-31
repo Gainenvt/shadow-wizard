@@ -27,3 +27,9 @@ Recordings/
 
 # Version control weirdness
 .plastic/
+/[Aa]ssets/TextMesh Pro/
+/[Aa]ssets/TextMesh Pro/Examples/
+/[Aa]ssets/TextMesh Pro/Resources/
+
+*_Recovery*
+_Recovery/
