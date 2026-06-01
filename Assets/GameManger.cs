@@ -23,6 +23,13 @@ public class GameManager : MonoBehaviour
     public GameObject RetryLevelButton;
     public GameObject MainMenuButton;
     public GameObject PauseMenu;
+    [Header("Game Audio")]
+    public AudioSource gameAudioSource;
+
+    public AudioClip scoreSound;
+    public AudioClip gameOverSound;
+    public AudioClip pauseSound;
+    public AudioClip winSound;
     
 
     public bool IsPaused = false;
@@ -52,6 +59,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TutorialFade());
         }
         Time.timeScale = 1f;
+
+        if (MissText != null)
+{
+    MissText.text =
+        "Missed Orbs: " + MissCount;
+}
 
 
 
@@ -109,6 +122,13 @@ Score += pointsEarned;
         {
             EndGame(true);
         }
+if (gameAudioSource != null &&
+    scoreSound != null)
+{
+    gameAudioSource.PlayOneShot(
+        scoreSound
+    );
+}
 
     }
 
@@ -132,6 +152,23 @@ Score += pointsEarned;
         Time.timeScale = 0f;
 
         GameOverPanel.SetActive(true);
+
+        if (gameAudioSource != null)
+{
+    if (won && winSound != null)
+    {
+        gameAudioSource.PlayOneShot(
+            winSound
+        );
+    }
+    else if (!won &&
+             gameOverSound != null)
+    {
+        gameAudioSource.PlayOneShot(
+            gameOverSound
+        );
+    }
+}
 
         if (won)
         {
@@ -160,6 +197,14 @@ Score += pointsEarned;
     Time.timeScale = 0f;
 
     PauseMenu.SetActive(true);
+
+    if (gameAudioSource != null &&
+    pauseSound != null)
+{
+    gameAudioSource.PlayOneShot(
+        pauseSound
+    );
+}
 }
 
 public void ResumeGame()

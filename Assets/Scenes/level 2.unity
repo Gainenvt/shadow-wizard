@@ -316,6 +316,11 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  gameAudioSource: {fileID: 0}
+  scoreSound: {fileID: 0}
+  gameOverSound: {fileID: 0}
+  pauseSound: {fileID: 0}
+  winSound: {fileID: 0}
   IsPaused: 0
 --- !u!114 &110015985
 MonoBehaviour:
@@ -1294,6 +1299,11 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  gameAudioSource: {fileID: 0}
+  scoreSound: {fileID: 0}
+  gameOverSound: {fileID: 0}
+  pauseSound: {fileID: 0}
+  winSound: {fileID: 0}
   IsPaused: 0
 --- !u!1 &919871412
 GameObject:
@@ -1360,6 +1370,11 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  gameAudioSource: {fileID: 0}
+  scoreSound: {fileID: 0}
+  gameOverSound: {fileID: 0}
+  pauseSound: {fileID: 0}
+  winSound: {fileID: 0}
   IsPaused: 0
 --- !u!114 &919871415
 MonoBehaviour:
@@ -2113,6 +2128,11 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  gameAudioSource: {fileID: 0}
+  scoreSound: {fileID: 8300000, guid: 1d0c1c032a7f7ab48a7e405ba945628c, type: 3}
+  gameOverSound: {fileID: 0}
+  pauseSound: {fileID: 0}
+  winSound: {fileID: 8300000, guid: 5d0825e257f6b064b99ddb29dfc33454, type: 3}
   IsPaused: 0
 --- !u!4 &1263261240
 Transform:
@@ -2730,6 +2750,11 @@ MonoBehaviour:
   RetryLevelButton: {fileID: 979957350}
   MainMenuButton: {fileID: 1604596115}
   PauseMenu: {fileID: 1669713217}
+  gameAudioSource: {fileID: 0}
+  scoreSound: {fileID: 0}
+  gameOverSound: {fileID: 0}
+  pauseSound: {fileID: 0}
+  winSound: {fileID: 0}
   IsPaused: 0
 --- !u!114 &1839846663
 MonoBehaviour:
@@ -3019,6 +3044,9 @@ MonoBehaviour:
   touchCheckRadius: 0.05
   pushForce: 2
   destroyParticles: {fileID: 0}
+  orbAudioSource: {fileID: 0}
+  orbMatchSound: {fileID: 0}
+  orbLockSound: {fileID: 0}
   colorType: 0
   hasBeenCounted: 0
 --- !u!61 &2033375261
@@ -3085,6 +3113,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerAudioSource: {fileID: 0}
+  victoriaPushSound: {fileID: 0}
 --- !u!1 &2068080403
 GameObject:
   m_ObjectHideFlags: 0

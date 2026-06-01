@@ -15,6 +15,10 @@ public class CircleController : MonoBehaviour
     public float pushForce = 5f;
 
     public GameObject destroyParticles;
+    [Header("Orb Audio")]
+    public AudioSource orbAudioSource;
+    public AudioClip orbMatchSound;
+    public AudioClip orbLockSound;
 
     public enum CircleType
     {
@@ -37,30 +41,38 @@ public class CircleController : MonoBehaviour
 
     void Update()
     {
-       if (transform.position.y < -4f && !isDestroying)
-{
-    isDestroying = true;
-    
-    if (colorType == CircleType.Cursed)
+        if (transform.position.y < -4f && !isDestroying)
     {
-        GameManager.Instance.Score -= 1;
+        isDestroying = true;
 
-        GameManager.Instance.UpdateScoreUI();
-
-        if (GameManager.Instance.Score <= -3)
+        // Play falling/despawn sound
+        if (orbLockSound != null)
         {
-            GameManager.Instance.EndGame(false);
+            AudioSource.PlayClipAtPoint(
+                orbLockSound,
+                transform.position
+            );
         }
-    }
-    else
-    {
-        GameManager.Instance.CircleMissed();
-    }
-    
 
-    StartCoroutine(DestroyAnimation());
-}
+        if (colorType == CircleType.Cursed)
+        {
+            GameManager.Instance.Score -= 1;
+
+            GameManager.Instance.UpdateScoreUI();
+
+            if (GameManager.Instance.Score <= -3)
+            {
+                GameManager.Instance.EndGame(false);
+            }
+        }
+        else
+        {
+            GameManager.Instance.CircleMissed();
+        }
+
+        StartCoroutine(DestroyAnimation());
     }
+}
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -118,8 +130,16 @@ public class CircleController : MonoBehaviour
 
         if (group.Count >= 3)
         {
+            if (orbAudioSource != null &&
+    orbMatchSound != null)
+{
+    orbAudioSource.PlayOneShot(
+        orbMatchSound
+    );
+}
             bool hasCursedOrb = false;
             bool hasAmpOrb = false;
+
 
             foreach (CircleController c in group)
             {
@@ -248,10 +268,18 @@ public class CircleController : MonoBehaviour
 
     void FreezeCircle()
     {
-        if (isFrozen)
-            return;
+       if (isFrozen)
+    return;
 
-        isFrozen = true;
+if (orbAudioSource != null &&
+    orbLockSound != null)
+{
+    orbAudioSource.PlayOneShot(
+        orbLockSound
+    );
+}
+
+isFrozen = true;
 
         canBeMoved = false;
 

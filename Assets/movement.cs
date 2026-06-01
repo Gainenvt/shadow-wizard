@@ -9,6 +9,10 @@ public class movement : MonoBehaviour
     public Transform groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
+    [Header("Audio Settings")]
+    public AudioSource playerAudioSource;
+    public AudioClip victoriaPushSound;
+
 
     private bool isGrounded;
 
@@ -47,5 +51,15 @@ public class movement : MonoBehaviour
     velocity.x = moveInput.x * moveSpeed;
 
     rb.linearVelocity = velocity;
+
+    if (Mathf.Abs(moveInput.x) > 0.1f &&
+    playerAudioSource != null &&
+    victoriaPushSound != null &&
+    !playerAudioSource.isPlaying)
+{
+    playerAudioSource.PlayOneShot(
+        victoriaPushSound
+    );
+}
 }
 }
